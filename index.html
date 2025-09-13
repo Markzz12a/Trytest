@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="th">
+<!DOCTYPE html>
+<html lang="th">
 <head>
   <meta charset="UTF-8">
   <title>Physics Quiz - TruePlookpanya Style</title>
@@ -13,99 +14,121 @@
       <button type="button" onclick="resetQuiz()" class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-lg shadow">ทำใหม่</button>
     </div>
     <div id="result" class="mt-10 hidden p-6 rounded-lg border-2 border-red-600 bg-red-50"></div>
-  </div>  <script>
-    const questions = [
-      // --- ใส่คำถามครบ 40 ข้อ ---
-      { q: "1. When you push on a wall, the wall:", options: ["Pulls you forward","Pushes back equally","Breaks immediately","Does nothing"], answer: 1 },
-      { q: "2. A rocket moves upward because:", options: ["Fuel pushes gases downward","Friction increases","Air pushes it","Gravity disappears"], answer: 0 },
-      { q: "3. If a runner speeds up, she is:", options: ["At rest","Accelerating","Moving at constant speed","Stopping"], answer: 1 },
-      { q: "4. Momentum equals:", options: ["Mass × velocity","Speed + mass","Acceleration × time","Force × distance"], answer: 0 },
-      { q: "5. Which is an example of action-reaction?", options: ["A car at rest","Gravity pulling objects","Walking (foot pushes ground)","A book on a table"], answer: 2 },
-      { q: "6. Acceleration is a change in:", options: ["Speed or direction","Force","Gravity","Mass"], answer: 0 },
-      { q: "7. Newton's third law states:", options: ["For every action, equal and opposite reaction","Objects remain at rest","Energy is conserved","Force = mass × a"], answer: 0 },
-      { q: "8. A parked car is:", options: ["Falling","At rest","Accelerating","In motion"], answer: 1 },
-      { q: "9. Which best describes motion?", options: ["Equal action and reaction","Change in position with time","Force divided by mass","Resistance to movement"], answer: 1 },
-      { q: "10. If a moving car hits another car, momentum is:", options: ["Destroyed","Transferred","Lost","Created"], answer: 1 },
-      { q: "11. What is motion?", options: ["Change in position","Shape","Weight","Mass"], answer: 0 },
-      { q: "12. When two billiard balls collide, momentum:", options: ["Increases","Decreases","Becomes zero","Stays the same"], answer: 3 },
-      { q: "13. Which of the following shows velocity?", options: ["A person sitting","A car moving 60 km/h north","An apple falling","A ball bouncing"], answer: 1 },
-      { q: "14. Momentum is conserved in:", options: ["Earth only","Isolated systems","All situations","Every object's mass"], answer: 1 },
-      { q: "15. Newton's first law is also called:", options: ["Law of Motion","Law of Gravity","Law of Forces","Law of Inertia"], answer: 3 },
-      { q: "16. Speed measures:", options: ["Mass and volume","Distance per unit time","Direction only","Position and shape"], answer: 1 },
-      { q: "17. An object is in motion if it:", options: ["Stops completely","Changes place over time","Remains still","Gets heavier"], answer: 1 },
-      { q: "18. Jumping off a boat pushes the boat:", options: ["Upward","Backward","Forward","Downward"], answer: 1 },
-      { q: "19. Force equals:", options: ["Mass × acceleration","Distance × time","Weight × gravity","Mass × speed"], answer: 0 },
-      { q: "20. Motion is measured relative to:", options: ["Gravity","Sun","A reference point","Earth"], answer: 2 },
-      { q: "21. Which of the following has both magnitude and direction:", options: ["Temperature","Velocity","Speed","Mass"], answer: 1 },
-      { q: "22. When you push a door, you apply:", options: ["Force","Heat","Energy","Mass"], answer: 0 },
-      { q: "23. Which is a non-contact force?", options: ["Friction","Pulling rope","Gravity","Push"], answer: 2 },
-      { q: "24. Which situation shows acceleration?", options: ["A rock on the ground","A bus slowing down","A car parked in the garage","A clock ticking"], answer: 1 },
-      { q: "25. A train moves 100 km in 2 hours. Speed:", options: ["100 km/h","25 km/h","200 km/h","50 km/h"], answer: 3 },
-      { q: "26. If two equal forces act in opposite directions, the result is:", options: ["Acceleration","Motion","Balanced force","Unbalanced force"], answer: 2 },
-      { q: "27. A car speeding up shows:", options: ["Balanced forces","Inertia only","No force acting","Unbalanced forces"], answer: 3 },
-      { q: "28. Which unit measures speed?", options: ["kg","m/s","N","J"], answer: 1 },
-      { q: "29. A reference point is used to:", options: ["Measure weight","Stop objects","Increase speed","Describe motion"], answer: 3 },
-      { q: "30. Which is an example of a force?", options: ["Reading a book","Sleeping","Lifting a box","Watching TV"], answer: 2 },
-      { q: "31. If speed stays the same but direction changes, the object is:", options: ["Accelerating","Not accelerating","Stopping","At rest"], answer: 0 },
-      { q: "32. Position tells us:", options: ["Where an object is located","The force on an object","How much mass an object has","The speed of an object"], answer: 0 },
-      { q: "33. A tug-of-war where both teams pull equally shows:", options: ["Acceleration","Balanced forces","Unbalanced forces","Friction"], answer: 1 },
-      { q: "34. Balanced forces cause:", options: ["No change in motion","Change in motion","Faster acceleration","More mass"], answer: 0 },
-      { q: "35. When position changes relative to a reference point, the object is:", options: ["In motion","At rest","Balanced","Stopping"], answer: 0 },
-      { q: "36. A force is a:", options: ["Speed or direction","Mass or volume","Push or pull","Weight or height"], answer: 2 },
-      { q: "37. If an object moves from one place to another, its:", options: ["Gravity increases","Position changes","Shape changes","Mass changes"], answer: 1 },
-      { q: "38. Which tool best measures position?", options: ["Thermometer","Scale","Ruler","Beaker"], answer: 2 },
-      { q: "39. Force is measured in:", options: ["Newtons (N)","Meters (m)","Joules (J)","Kilograms (kg)"], answer: 0 },
-      { q: "40. Unbalanced forces cause an object to:", options: ["Move/change motion","Stay at rest","Have no weight","Remain still"], answer: 0 }
-    ];
+  </div>  
 
-    const form = document.getElementById("quizForm");
-    questions.forEach((item, index) => {
-      const qDiv = document.createElement("div");
-      qDiv.className = "p-4 border rounded-lg shadow";
-      let html = `<p class='font-semibold mb-3'>${item.q}</p>`;
-      item.options.forEach((opt, i) => {
-        html += `
-          <label class='block mb-2 p-2 border rounded cursor-pointer hover:bg-red-50'>
-            <input type='radio' name='q${index}' value='${i}' class='mr-2'> ${String.fromCharCode(97+i)}) ${opt}
-          </label>`;
-      });
-      qDiv.innerHTML = html;
-      form.appendChild(qDiv);
-    });
+<script>
+const questions = [
+  { q:"1. When you push on a wall, the wall:", options:["Pulls you forward","Pushes back equally","Breaks immediately","Does nothing"], answer:1 },
+  { q:"2. A rocket moves upward because:", options:["Fuel pushes gases downward","Friction increases","Air pushes it","Gravity disappears"], answer:0 },
+  { q:"3. If a runner speeds up, she is:", options:["At rest","Accelerating","Moving at constant speed","Stopping"], answer:1 },
+  { q:"4. Momentum equals:", options:["Mass × velocity","Speed + mass","Acceleration × time","Force × distance"], answer:0 },
+  { q:"5. Which is an example of action-reaction?", options:["A car at rest","Gravity pulling objects","Walking (foot pushes ground)","A book on a table"], answer:2 },
+  { q:"6. Acceleration is a change in:", options:["Speed or direction","Force","Gravity","Mass"], answer:0 },
+  { q:"7. Newton's third law states:", options:["For every action, equal and opposite reaction","Objects remain at rest","Energy is conserved","Force = mass × a"], answer:0 },
+  { q:"8. A parked car is:", options:["Falling","At rest","Accelerating","In motion"], answer:1 },
+  { q:"9. Which best describes motion?", options:["Equal action and reaction","Change in position with time","Force divided by mass","Resistance to movement"], answer:1 },
+  { q:"10. If a moving car hits another car, momentum is:", options:["Destroyed","Transferred","Lost","Created"], answer:1 },
+  { q:"11. What is motion?", options:["Change in position","Shape","Weight","Mass"], answer:0 },
+  { q:"12. Position tells us:", options:["Where an object is located","The force on an object","How much mass an object has","The speed of an object"], answer:0 },
+  { q:"13. A tug-of-war where both teams pull equally shows:", options:["Acceleration","Balanced forces","Unbalanced forces","Friction"], answer:1 },
+  { q:"14. Balanced forces cause:", options:["No change in motion","Change in motion","Faster acceleration","More mass"], answer:0 },
+  { q:"15. When position changes relative to a reference point, the object is:", options:["In motion","At rest","Balanced","Stopping"], answer:0 },
+  { q:"16. A force is a:", options:["Speed or direction","Mass or volume","Push or pull","Weight or height"], answer:2 },
+  { q:"17. If an object moves from one place to another, its:", options:["Gravity increases","Position changes","Shape changes","Mass changes"], answer:1 },
+  { q:"18. Which tool best measures position?", options:["Thermometer","Scale","Ruler","Beaker"], answer:2 },
+  { q:"19. Force is measured in:", options:["Newtons (N)","Meters (m)","Joules (J)","Kilograms (kg)"], answer:0 },
+  { q:"20. Unbalanced forces cause an object to:", options:["Move/change motion","Stay at rest","Have no weight","Remain still"], answer:0 },
+  { q:"21. Which of the following has both magnitude and direction:", options:["Temperature","Velocity","Speed","Mass"], answer:1 },
+  { q:"22. When you push a door, you apply:", options:["Force","Heat","Energy","Mass"], answer:0 },
+  { q:"23. Which is a non-contact force?", options:["Friction","Pulling rope","Gravity","Push"], answer:2 },
+  { q:"24. Which situation shows acceleration?", options:["A rock on the ground","A bus slowing down","A car parked in the garage","A clock ticking"], answer:1 },
+  { q:"25. A train moves 100 km in 2 hours. Speed:", options:["100 km/h","25 km/h","200 km/h","50 km/h"], answer:3 },
+  { q:"26. If two equal forces act in opposite directions, the result is:", options:["Acceleration","Motion","Balanced force","Unbalanced force"], answer:2 },
+  { q:"27. A car speeding up shows:", options:["Balanced forces","Inertia only","No force acting","Unbalanced forces"], answer:3 },
+  { q:"28. Which unit measures speed?", options:["kg","m/s","N","J"], answer:1 },
+  { q:"29. A reference point is used to:", options:["Measure weight","Stop objects","Increase speed","Describe motion"], answer:3 },
+  { q:"30. Which is an example of a force?", options:["Reading a book","Sleeping","Lifting a box","Watching TV"], answer:2 },
+  { q:"31. If speed stays the same but direction changes, the object is:", options:["Accelerating","Not accelerating","Stopping","At rest"], answer:0 },
+  { q:"32. Inertia causes:", options:["Objects to move by themselves","Objects to resist change in motion","Objects to accelerate automatically","Objects to disappear"], answer:1 },
+  { q:"33. Work is done when:", options:["A force moves an object","An object sits still","Gravity acts alone","Energy is zero"], answer:0 },
+  { q:"34. Gravity pulls objects:", options:["Upward","Sideways","Downward","Does nothing"], answer:2 },
+  { q:"35. Kinetic energy depends on:", options:["Mass and speed","Shape and color","Position only","Gravity only"], answer:0 },
+  { q:"36. Potential energy is stored:", options:["In motion","Due to position or shape","As heat","As sound"], answer:1 },
+  { q:"37. Newton's first law states:", options:["Objects in motion stay in motion","Force equals mass × acceleration","Every action has opposite reaction","Energy is conserved"], answer:0 },
+  { q:"38. Newton's second law:", options:["F = m × a","E = mc²","P = mv","No relation"], answer:0 },
+  { q:"39. Momentum is conserved when:", options:["No external force","Friction exists","Gravity changes","Mass disappears"], answer:0 },
+  { q:"40. Air resistance:", options:["Slows down objects","Speeds up objects","Has no effect","Destroys objects"], answer:0 },
+  { q:"41. Friction always:", options:["Slows objects","Speeds objects","Has no effect","Pulls objects upward"], answer:0 },
+  { q:"42. An object at rest:", options:["Remains at rest","Accelerates","Changes speed","Moves automatically"], answer:0 },
+  { q:"43. Speed measures:", options:["Distance per unit time","Mass","Force","Position"], answer:0 },
+  { q:"44. Velocity includes:", options:["Speed and direction","Mass","Force","Energy"], answer:0 },
+  { q:"45. Reference point is used to:", options:["Describe motion","Increase speed","Stop objects","Measure weight"], answer:0 },
+  { q:"46. Balanced forces result in:", options:["No change in motion","Faster motion","Acceleration","Mass change"], answer:0 },
+  { q:"47. Unbalanced forces result in:", options:["Change in motion","Nothing","Objects disappear","Mass increases"], answer:0 },
+  { q:"48. A rocket pushes gases down and moves up due to:", options:["Action-reaction","Gravity","Inertia","Friction"], answer:0 },
+  { q:"49. Mass affects:", options:["Inertia and weight","Color","Shape","Speed only"], answer:0 },
+  { q:"50. Weight is:", options:["Force due to gravity","Mass × speed","Volume × density","Position"], answer:0 },
+  { q:"51. The unit of mass is:", options:["kg","N","m","J"], answer:0 },
+  { q:"52. Power is:", options:["Work done per time","Force × distance","Mass × acceleration","Energy × speed"], answer:0 },
+  { q:"53. Energy can be:", options:["Kinetic or potential","Static only","Invisible","Color"], answer:0 },
+  { q:"54. Friction depends on:", options:["Surface type and force","Color","Mass only","Speed only"], answer:0 },
+  { q:"55. Acceleration formula:", options:["a = Δv / t","v = s / t","F = m × a","p = m × v"], answer:0 },
+  { q:"56. If no net force acts, the object:", options:["Moves at constant velocity","Accelerates","Stops immediately","Changes direction"], answer:0 },
+  { q:"57. Elastic collision conserves:", options:["Momentum and kinetic energy","Only momentum","Only energy","Neither"], answer:0 },
+  { q:"58. Force pair example:", options:["Hammer hits nail","Book sits","Rock on ground","Car parked"], answer:0 },
+  { q:"59. Motion is described by:", options:["Position, speed, direction","Color","Shape","Weight"], answer:0 },
+  { q:"60. A moving object will:", options:["Continue in motion unless acted upon","Stop by itself","Disappear","Change mass"], answer:0 }
+];
 
-    function submitQuiz() {
-      let score = 0;
-      let resultHTML = "<h2 class='text-xl font-bold text-red-700 mb-4'>ผลการทำแบบทดสอบ</h2>";
-      resultHTML += "<ul class='space-y-3'>";
+const form = document.getElementById("quizForm");
+questions.forEach((item, index) => {
+  const qDiv = document.createElement("div");
+  qDiv.className = "p-4 border rounded-lg shadow";
+  let html = `<p class='font-semibold mb-3'>${item.q}</p>`;
+  item.options.forEach((opt, i) => {
+    html += `
+      <label class='block mb-2 p-2 border rounded cursor-pointer hover:bg-red-50'>
+        <input type='radio' name='q${index}' value='${i}' class='mr-2'> ${String.fromCharCode(97+i)}) ${opt}
+      </label>`;
+  });
+  qDiv.innerHTML = html;
+  form.appendChild(qDiv);
+});
 
-      questions.forEach((item, index) => {
-        const selected = document.querySelector(`input[name=q${index}]:checked`);
-        if (selected) {
-          const ans = parseInt(selected.value);
-          if (ans === item.answer) {
-            score++;
-            resultHTML += `<li class='p-3 rounded bg-green-100'>ข้อ ${index+1}: ✅ ถูกต้อง</li>`;
-          } else {
-            resultHTML += `<li class='p-3 rounded bg-red-100'>ข้อ ${index+1}: ❌ ผิด (คุณตอบ ${String.fromCharCode(97+ans)}) — คำตอบที่ถูกคือ ${String.fromCharCode(97+item.answer)}) ${item.options[item.answer]}</li>`;
-          }
-        } else {
-          resultHTML += `<li class='p-3 rounded bg-yellow-100'>ข้อ ${index+1}: ⚠️ ยังไม่ได้เลือกคำตอบ</li>`;
-        }
-      });
-      resultHTML += "</ul>";
+function submitQuiz() {
+  let score = 0;
+  let resultHTML = "<h2 class='text-xl font-bold text-red-700 mb-4'>ผลการทำแบบทดสอบ</h2>";
+  resultHTML += "<ul class='space-y-3'>";
 
-      const percent = Math.round((score/questions.length)*100);
-      resultHTML = `<p class='mb-4 font-semibold'>คุณได้คะแนน ${score}/${questions.length} (${percent}%)</p>` + resultHTML;
-
-      document.getElementById("result").innerHTML = resultHTML;
-      document.getElementById("result").classList.remove("hidden");
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  questions.forEach((item, index) => {
+    const selected = document.querySelector(`input[name=q${index}]:checked`);
+    if (selected) {
+      const ans = parseInt(selected.value);
+      if (ans === item.answer) {
+        score++;
+        resultHTML += `<li class='p-3 rounded bg-green-100'>ข้อ ${index+1}: ✅ ถูกต้อง</li>`;
+      } else {
+        resultHTML += `<li class='p-3 rounded bg-red-100'>ข้อ ${index+1}: ❌ ผิด (คุณตอบ ${String.fromCharCode(97+ans)}) — คำตอบที่ถูกคือ ${String.fromCharCode(97+item.answer)}) ${item.options[item.answer]}</li>`;
+      }
+    } else {
+      resultHTML += `<li class='p-3 rounded bg-yellow-100'>ข้อ ${index+1}: ⚠️ ยังไม่ได้เลือกคำตอบ</li>`;
     }
+  });
+  resultHTML += "</ul>";
 
-    function resetQuiz() {
-      document.getElementById("quizForm").reset();
-      document.getElementById("result").classList.add("hidden");
-      document.getElementById("result").innerHTML = "";
-    }
-  </script></body>
+  const percent = Math.round((score/questions.length)*100);
+  resultHTML = `<p class='mb-4 font-semibold'>คุณได้คะแนน ${score}/${questions.length} (${percent}%)</p>` + resultHTML;
+
+  document.getElementById("result").innerHTML = resultHTML;
+  document.getElementById("result").classList.remove("hidden");
+  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+}
+
+function resetQuiz() {
+  document.getElementById("quizForm").reset();
+  document.getElementById("result").classList.add("hidden");
+  document.getElementById("result").innerHTML = "";
+}
+</script>
+</body>
 </html>

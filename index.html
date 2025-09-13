@@ -1,92 +1,130 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <title>Full Physics & Biology Quiz - TruePlookpanya Style</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<title>Full Physics & Biology Quiz</title>
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white text-gray-800 font-sans">
-  <div class="max-w-5xl mx-auto p-6">
-    <h1 class="text-3xl font-bold text-center text-red-700 mb-6">Full Physics & Biology Quiz</h1>
-    <form id="quizForm" class="space-y-6"></form>
-    <div class="flex justify-center gap-4 mt-8">
-      <button type="button" onclick="submitQuiz()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-lg shadow">ส่งคำตอบ</button>
-      <button type="button" onclick="resetQuiz()" class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-lg shadow">ทำใหม่</button>
-    </div>
-    <div id="result" class="mt-10 hidden p-6 rounded-lg border-2 border-red-600 bg-red-50"></div>
+<div class="max-w-5xl mx-auto p-6">
+  <h1 class="text-3xl font-bold text-center text-red-700 mb-6">Full Physics & Biology Quiz</h1>
+  <form id="quizForm" class="space-y-6"></form>
+  <div class="flex justify-center gap-4 mt-8">
+    <button type="button" onclick="submitQuiz()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-lg shadow">ส่งคำตอบ</button>
+    <button type="button" onclick="resetQuiz()" class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-lg shadow">ทำใหม่</button>
   </div>
+  <div id="result" class="mt-10 hidden p-6 rounded-lg border-2 border-red-600 bg-red-50"></div>
+</div>
 
-  <script>
-    const questions = [
-      // --- Physics 1-40 ---
-      { q: "1. When you push on a wall, the wall:", options: ["Pulls you forward","Pushes back equally","Breaks immediately","Does nothing"], answer: 1 },
-      { q: "2. A rocket moves upward because:", options: ["Fuel pushes gases downward","Friction increases","Air pushes it","Gravity disappears"], answer: 0 },
-      { q: "3. If a runner speeds up, she is:", options: ["At rest","Accelerating","Moving at constant speed","Stopping"], answer: 1 },
-      { q: "4. Momentum equals:", options: ["Mass × velocity","Speed + mass","Acceleration × time","Force × distance"], answer: 0 },
-      { q: "5. Which is an example of action-reaction?", options: ["A car at rest","Gravity pulling objects","Walking (foot pushes ground)","A book on a table"], answer: 2 },
-      { q: "6. Acceleration is a change in:", options: ["Speed or direction","Force","Gravity","Mass"], answer: 0 },
-      { q: "7. Newton's third law states:", options: ["For every action, equal and opposite reaction","Objects remain at rest","Energy is conserved","Force = mass × a"], answer: 0 },
-      { q: "8. A parked car is:", options: ["Falling","At rest","Accelerating","In motion"], answer: 1 },
-      { q: "9. Which best describes motion?", options: ["Equal action and reaction","Change in position with time","Force divided by mass","Resistance to movement"], answer: 1 },
-      { q: "10. If a moving car hits another car, momentum is:", options: ["Destroyed","Transferred","Lost","Created"], answer: 1 },
-      { q: "11. What is motion?", options: ["Change in position","Shape","Weight","Mass"], answer: 0 },
-      { q: "12. When two billiard balls collide, momentum:", options: ["Increases","Decreases","Becomes zero","Stays the same"], answer: 3 },
-      { q: "13. Which of the following shows velocity?", options: ["A person sitting","A car moving 60 km/h north","An apple falling","A ball bouncing"], answer: 1 },
-      { q: "14. Momentum is conserved in:", options: ["Earth only","Isolated systems","All situations","Every object's mass"], answer: 1 },
-      { q: "15. Newton's first law is also called:", options: ["Law of Motion","Law of Gravity","Law of Forces","Law of Inertia"], answer: 3 },
-      { q: "16. Speed measures:", options: ["Mass and volume","Distance per unit time","Direction only","Position and shape"], answer: 1 },
-      { q: "17. An object is in motion if it:", options: ["Stops completely","Changes place over time","Remains still","Gets heavier"], answer: 1 },
-      { q: "18. Jumping off a boat pushes the boat:", options: ["Upward","Backward","Forward","Downward"], answer: 1 },
-      { q: "19. Force equals:", options: ["Mass × acceleration","Distance × time","Weight × gravity","Mass × speed"], answer: 0 },
-      { q: "20. Motion is measured relative to:", options: ["Gravity","Sun","A reference point","Earth"], answer: 2 },
-      { q: "21. Which of the following has both magnitude and direction:", options: ["Temperature","Velocity","Speed","Mass"], answer: 1 },
-      { q: "22. When you push a door, you apply:", options: ["Force","Heat","Energy","Mass"], answer: 0 },
-      { q: "23. Which is a non-contact force?", options: ["Friction","Pulling rope","Gravity","Push"], answer: 2 },
-      { q: "24. Which situation shows acceleration?", options: ["A rock on the ground","A bus slowing down","A car parked in the garage","A clock ticking"], answer: 1 },
-      { q: "25. A train moves 100 km in 2 hours. Speed:", options: ["100 km/h","25 km/h","200 km/h","50 km/h"], answer: 3 },
-      { q: "26. If two equal forces act in opposite directions, the result is:", options: ["Acceleration","Motion","Balanced force","Unbalanced force"], answer: 2 },
-      { q: "27. A car speeding up shows:", options: ["Balanced forces","Inertia only","No force acting","Unbalanced forces"], answer: 3 },
-      { q: "28. Which unit measures speed?", options: ["kg","m/s","N","J"], answer: 1 },
-      { q: "29. A reference point is used to:", options: ["Measure weight","Stop objects","Increase speed","Describe motion"], answer: 3 },
-      { q: "30. Which is an example of a force?", options: ["Reading a book","Sleeping","Lifting a box","Watching TV"], answer: 2 },
-      { q: "31. If speed stays the same but direction changes, the object is:", options: ["Accelerating","Not accelerating","Stopping","At rest"], answer: 0 },
-      { q: "32. Position tells us:", options: ["Where an object is located","The force on an object","How much mass an object has","The speed of an object"], answer: 0 },
-      { q: "33. A tug-of-war where both teams pull equally shows:", options: ["Acceleration","Balanced forces","Unbalanced forces","Friction"], answer: 1 },
-      { q: "34. Balanced forces cause:", options: ["No change in motion","Change in motion","Faster acceleration","More mass"], answer: 0 },
-      { q: "35. When position changes relative to a reference point, the object is:", options: ["In motion","At rest","Balanced","Stopping"], answer: 0 },
-      { q: "36. A force is a:", options: ["Speed or direction","Mass or volume","Push or pull","Weight or height"], answer: 2 },
-      { q: "37. If an object moves from one place to another, its:", options: ["Gravity increases","Position changes","Shape changes","Mass changes"], answer: 1 },
-      { q: "38. Which tool best measures position?", options: ["Thermometer","Scale","Ruler","Beaker"], answer: 2 },
-      { q: "39. Force is measured in:", options: ["Newtons (N)","Meters (m)","Joules (J)","Kilograms (kg)"], answer: 0 },
-      { q: "40. Unbalanced forces cause an object to:", options: ["Move/change motion","Stay at rest","Have no weight","Remain still"], answer: 0 },
+<script>
+const questions = [
+  // Physics 1-40
+  { q:"1. When you push on a wall, the wall:", options:["Pulls you forward","Pushes back equally","Breaks immediately","Does nothing"], answer:1 },
+  { q:"2. A rocket moves upward because:", options:["Fuel pushes gases downward","Friction increases","Air pushes it","Gravity disappears"], answer:0 },
+  { q:"3. If a runner speeds up, she is:", options:["At rest","Accelerating","Moving at constant speed","Stopping"], answer:1 },
+  { q:"4. Momentum equals:", options:["Mass × velocity","Speed + mass","Acceleration × time","Force × distance"], answer:0 },
+  { q:"5. Which is an example of action-reaction?", options:["A car at rest","Gravity pulling objects","Walking (foot pushes ground)","A book on a table"], answer:2 },
+  { q:"6. Acceleration is a change in:", options:["Speed or direction","Force","Gravity","Mass"], answer:0 },
+  { q:"7. Newton's third law states:", options:["For every action, equal and opposite reaction","Objects remain at rest","Energy is conserved","Force = mass × a"], answer:0 },
+  { q:"8. A parked car is:", options:["Falling","At rest","Accelerating","In motion"], answer:1 },
+  { q:"9. Which best describes motion?", options:["Equal action and reaction","Change in position with time","Force divided by mass","Resistance to movement"], answer:1 },
+  { q:"10. If a moving car hits another car, momentum is:", options:["Destroyed","Transferred","Lost","Created"], answer:1 },
+  { q:"11. What is motion?", options:["Change in position","Shape","Weight","Mass"], answer:0 },
+  { q:"12. When two billiard balls collide, momentum:", options:["Increases","Decreases","Becomes zero","Stays the same"], answer:3 },
+  { q:"13. Which of the following shows velocity?", options:["A person sitting","A car moving 60 km/h north","An apple falling","A ball bouncing"], answer:1 },
+  { q:"14. Momentum is conserved in:", options:["Earth only","Isolated systems","All situations","Every object's mass"], answer:1 },
+  { q:"15. Newton's first law is also called:", options:["Law of Motion","Law of Gravity","Law of Forces","Law of Inertia"], answer:3 },
+  { q:"16. Speed measures:", options:["Mass and volume","Distance per unit time","Direction only","Position and shape"], answer:1 },
+  { q:"17. An object is in motion if it:", options:["Stops completely","Changes place over time","Remains still","Gets heavier"], answer:1 },
+  { q:"18. Jumping off a boat pushes the boat:", options:["Upward","Backward","Forward","Downward"], answer:1 },
+  { q:"19. Force equals:", options:["Mass × acceleration","Distance × time","Weight × gravity","Mass × speed"], answer:0 },
+  { q:"20. Motion is measured relative to:", options:["Gravity","Sun","A reference point","Earth"], answer:2 },
+  { q:"21. Which of the following has both magnitude and direction:", options:["Temperature","Velocity","Speed","Mass"], answer:1 },
+  { q:"22. When you push a door, you apply:", options:["Force","Heat","Energy","Mass"], answer:0 },
+  { q:"23. Which is a non-contact force?", options:["Friction","Pulling rope","Gravity","Push"], answer:2 },
+  { q:"24. Which situation shows acceleration?", options:["A rock on the ground","A bus slowing down","A car parked in the garage","A clock ticking"], answer:1 },
+  { q:"25. A train moves 100 km in 2 hours. Speed:", options:["100 km/h","25 km/h","200 km/h","50 km/h"], answer:3 },
+  { q:"26. If two equal forces act in opposite directions, the result is:", options:["Acceleration","Motion","Balanced force","Unbalanced force"], answer:2 },
+  { q:"27. A car speeding up shows:", options:["Balanced forces","Inertia only","No force acting","Unbalanced forces"], answer:3 },
+  { q:"28. Which unit measures speed?", options:["kg","m/s","N","J"], answer:1 },
+  { q:"29. A reference point is used to:", options:["Measure weight","Stop objects","Increase speed","Describe motion"], answer:3 },
+  { q:"30. Which is an example of a force?", options:["Reading a book","Sleeping","Lifting a box","Watching TV"], answer:2 },
+  { q:"31. If speed stays the same but direction changes, the object is:", options:["Accelerating","Not accelerating","Stopping","At rest"], answer:0 },
+  { q:"32. Position tells us:", options:["Where an object is located","The force on an object","How much mass an object has","The speed of an object"], answer:0 },
+  { q:"33. A tug-of-war where both teams pull equally shows:", options:["Acceleration","Balanced forces","Unbalanced forces","Friction"], answer:1 },
+  { q:"34. Balanced forces cause:", options:["No change in motion","Change in motion","Faster acceleration","More mass"], answer:0 },
+  { q:"35. When position changes relative to a reference point, the object is:", options:["In motion","At rest","Balanced","Stopping"], answer:0 },
+  { q:"36. A force is a:", options:["Speed or direction","Mass or volume","Push or pull","Weight or height"], answer:2 },
+  { q:"37. If an object moves from one place to another, its:", options:["Gravity increases","Position changes","Shape changes","Mass changes"], answer:1 },
+  { q:"38. Which tool best measures position?", options:["Thermometer","Scale","Ruler","Beaker"], answer:2 },
+  { q:"39. Force is measured in:", options:["Newtons (N)","Meters (m)","Joules (J)","Kilograms (kg)"], answer:0 },
+  { q:"40. Unbalanced forces cause an object to:", options:["Move/change motion","Stay at rest","Have no weight","Remain still"], answer:0 },
 
-      // --- Biology 41-60 ---
-      { q: "41. What is the green pigment inside chloroplasts?", options: ["Anthocyanin","Xanthophyll","Chlorophyll","Carotene"], answer: 2 },
-      { q: "42. Which plant tissue moves water from roots to leaves?", options: ["Cambium","Xylem","Epidermis","Phloem"], answer: 1 },
-      { q: "43. What does the stem do?", options: ["Makes seeds","Makes food","Supports the plant and carries water","Absorbs water"], answer: 2 },
-      { q: "44. What is phototropism?", options: ["Growth toward gravity","Growth toward touch","Growth toward light","Growth toward water"], answer: 2 },
-      { q: "45. If the same force is applied to a heavy and light object, the lighter object will:", options: ["Accelerate less","Stay still","Accelerate more","Stop moving"], answer: 2 },
-      { q: "46. Which surface would produce the most friction?", options: ["Smooth tile","Sandpaper","Ice","Glass"], answer: 1 },
-      { q: "47. Newton's first law is also called:", options: ["Law of Inertia","Law of Motion","Law of Gravity","Law of Forces"], answer: 0 },
-      { q: "48. The force of gravity depends on:", options: ["Shape and color","Mass and distance","Size and temperature","Speed and time"], answer: 1 },
-      { q: "49. A rolling ball will keep moving until:", options: ["Someone watches it","It disappears","A force stops it","It gets heavier"], answer: 2 },
-      { q: "50. Gravity gives objects their:", options: ["Weight","Speed","Mass","Shape"], answer: 0 },
-      { q: "51. Which gas do cells need to carry out respiration?", options: ["Carbon dioxide","Nitrogen","Oxygen","Hydrogen"], answer: 2 },
-      { q: "52. Friction always acts:", options: ["In the direction of motion","Opposite to motion","Downward only","Upward only"], answer: 1 },
-      { q: "53. An object at rest stays at rest unless:", options: ["It becomes heavier","A force acts on it","Time passes","It loses mass"], answer: 1 },
-      { q: "54. What is the name of the process cells use to take in large particles?", options: ["Diffusion","Endocytosis","Osmosis","Exocytosis"], answer: 1 },
-      { q: "55. Which situation shows useful friction?", options: ["A box moving downhill","A car tire gripping the road","A ball rolling on grass","A sled sliding on ice"], answer: 1 },
-      { q: "56. What is the main purpose of roots?", options: ["Carry water to leaves","Produce seeds","Make food","Support the plant and absorb water"], answer: 3 },
-      { q: "57. Force equals:", options: ["Mass x acceleration","Mass x speed","Distance x time","Weight x gravity"], answer: 0 },
-      { q: "58. Which of the following is an example of Newton's second law?", options: ["A rocket floating in space","A balloon flying upward","A football kicked harder","A book on a table"], answer: 2 },
-      { q: "59. Gravity always pulls objects toward:", options: ["Other planets","The center of Earth","The moon","The sky"], answer: 1 },
-      { q: "60. Why do passengers move forward when a car suddenly stops?", options: ["Friction","Speed","Inertia","Gravity"], answer: 2 }
-    ];
+  // Biology 41-60
+  { q:"41. What is the green pigment inside chloroplasts?", options:["Anthocyanin","Xanthophyll","Chlorophyll","Carotene"], answer:2 },
+  { q:"42. Which plant tissue moves water from roots to leaves?", options:["Cambium","Xylem","Epidermis","Phloem"], answer:1 },
+  { q:"43. What does the stem do?", options:["Makes seeds","Makes food","Supports the plant and carries water","Absorbs water"], answer:2 },
+  { q:"44. What is phototropism?", options:["Growth toward gravity","Growth toward touch","Growth toward light","Growth toward water"], answer:2 },
+  { q:"45. If the same force is applied to a heavy and light object, the lighter object will:", options:["Accelerate less","Stay still","Accelerate more","Stop moving"], answer:2 },
+  { q:"46. Which surface would produce the most friction?", options:["Smooth tile","Sandpaper","Ice","Glass"], answer:1 },
+  { q:"47. Newton's first law is also called:", options:["Law of Inertia","Law of Motion","Law of Gravity","Law of Forces"], answer:0 },
+  { q:"48. The force of gravity depends on:", options:["Shape and color","Mass and distance","Size and temperature","Speed and time"], answer:1 },
+  { q:"49. A rolling ball will keep moving until:", options:["Someone watches it","It disappears","A force stops it","It gets heavier"], answer:2 },
+  { q:"50. Gravity gives objects their:", options:["Weight","Speed","Mass","Shape"], answer:0 },
+  { q:"51. Which gas do cells need to carry out respiration?", options:["Carbon dioxide","Nitrogen","Oxygen","Hydrogen"], answer:2 },
+  { q:"52. Friction always acts:", options:["In the direction of motion","Opposite to motion","Downward only","Upward only"], answer:1 },
+  { q:"53. An object at rest stays at rest unless:", options:["It becomes heavier","A force acts on it","Time passes","It loses mass"], answer:1 },
+  { q:"54. What is the name of the process cells use to take in large particles?", options:["Diffusion","Endocytosis","Osmosis","Exocytosis"], answer:1 },
+  { q:"55. Which situation shows useful friction?", options:["A box moving downhill","A car tire gripping the road","A ball rolling on grass","A sled sliding on ice"], answer:1 },
+  { q:"56. What is the main purpose of roots?", options:["Carry water to leaves","Produce seeds","Make food","Support the plant and absorb water"], answer:3 },
+  { q:"57. Force equals:", options:["Mass x acceleration","Mass x speed","Distance x time","Weight x gravity"], answer:0 },
+  { q:"58. Which of the following is an example of Newton's second law?", options:["A rocket floating in space","A balloon flying upward","A football kicked harder","A book on a table"], answer:2 },
+  { q:"59. Gravity always pulls objects toward:", options:["Other planets","The center of Earth","The moon","The sky"], answer:1 },
+  { q:"60. Why do passengers move forward when a car suddenly stops?", options:["Friction","Speed","Inertia","Gravity"], answer:2 }
+];
 
-    const form = document.getElementById("quizForm");
-    questions.forEach((item, index) => {
-      const qDiv = document.createElement("div");
-      qDiv.className = "p-4 border rounded-lg shadow";
-      let html = `<p class='font-semibold mb-3'>${item.q}</p>`;
-      item.options.forEach((opt, i) => {
-        html
+// สร้างตัวเลือก
+const form=document.getElementById("quizForm");
+questions.forEach((item,index)=>{
+  const div=document.createElement("div");
+  div.className="p-4 border rounded-lg shadow";
+  let html=`<p class="font-semibold mb-3">${item.q}</p>`;
+  item.options.forEach((opt,i)=>{
+    html+=`<label class="block mb-2 p-2 border rounded cursor-pointer hover:bg-red-50">
+      <input type="radio" name="q${index}" value="${i}" class="mr-2"> ${String.fromCharCode(97+i)}) ${opt}
+    </label>`;
+  });
+  div.innerHTML=html;
+  form.appendChild(div);
+});
+
+function submitQuiz(){
+  let score=0;
+  let resultHTML="<h2 class='text-xl font-bold text-red-700 mb-4'>ผลการทำแบบทดสอบ</h2><ul class='space-y-3'>";
+  questions.forEach((item,index)=>{
+    const selected=document.querySelector(`input[name=q${index}]:checked`);
+    if(selected){
+      const ans=parseInt(selected.value);
+      if(ans===item.answer){
+        score++;
+        resultHTML+=`<li class='p-3 rounded bg-green-100'>ข้อ ${index+1}: ✅ ถูกต้อง</li>`;
+      }else{
+        resultHTML+=`<li class='p-3 rounded bg-red-100'>ข้อ ${index+1}: ❌ ผิด (คุณตอบ ${String.fromCharCode(97+ans)} | คำตอบที่ถูกคือ ${String.fromCharCode(97+item.answer)})</li>`;
+      }
+    }else{
+      resultHTML+=`<li class='p-3 rounded bg-yellow-100'>ข้อ ${index+1}: ⚠️ ไม่ได้ตอบ</li>`;
+    }
+  });
+  resultHTML+=`</ul><p class="mt-4 font-bold">คะแนนรวม: ${score} / ${questions.length}</p>`;
+  const resultDiv=document.getElementById("result");
+  resultDiv.innerHTML=resultHTML;
+  resultDiv.classList.remove("hidden");
+}
+
+function resetQuiz(){
+  document.getElementById("quizForm").reset();
+  document.getElementById("result").classList.add("hidden");
+}
+</script>
+</body>
+</html>

@@ -4,77 +4,129 @@
 <meta charset="UTF-8">
 <title>Final Exam Practice</title>
 <style>
-body{font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;background:#e6f2ff;margin:0;padding:0;}
-#quiz-container{max-width:700px;margin:40px auto;background:#fff;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.15);padding:20px;color:#000;}
-#progress{text-align:right;margin-bottom:15px;font-weight:bold;color:#222;}
-.question h3{color:#111;}
-.options label{display:block;margin:8px 0;cursor:pointer;padding:8px;border:1px solid #ccc;border-radius:6px;background:#f9f9f9;}
-.options label:hover{background:#e0f0ff;}
-.correct{background:#d4edda;color:#155724;font-weight:bold;}
-.wrong{background:#f8d7da;color:#721c24;font-weight:bold;}
-.explain{font-size:14px;color:#555;margin-top:5px;}
-.controls{margin-top:15px;display:flex;justify-content:space-between;}
-button{background:#4a90e2;color:white;border:none;padding:10px 18px;border-radius:8px;font-size:15px;cursor:pointer;}
-button:hover{background:#357ab7;}
-#results{margin-top:20px;padding:15px;background:#fefefe;border-radius:10px;box-shadow:0 3px 6px rgba(0,0,0,0.08);}
+body { font-family: Arial, sans-serif; margin:20px; background:#f0f8ff; }
+#quiz-container { max-width:700px; margin:auto; padding:20px; background:#fff; border:1px solid #ccc; border-radius:8px; }
+#progress { margin-bottom:10px; }
+label { display:block; margin:5px 0; }
+.correct { color:green; font-weight:bold; }
+.wrong { color:red; font-weight:bold; }
+.explain { font-size:14px; margin-top:5px; color:#333; }
+button { margin-top:10px; padding:8px 16px; }
+#results { margin-top:20px; }
 </style>
 </head>
 <body>
 <div id="quiz-container">
-  <div id="progress">Question 1 of 60</div>
-  <div class="question" id="question-box">
+  <div id="progress"></div>
+  <div id="question-box">
     <h3 id="question-text"></h3>
     <div id="options"></div>
   </div>
-  <div class="controls">
-    <button onclick="prevQuestion()">Previous</button>
-    <button onclick="nextQuestion()" id="nextBtn">Next</button>
-  </div>
+  <button onclick="prevQuestion()">Previous</button>
+  <button onclick="nextQuestion()">Next</button>
   <div id="results"></div>
 </div>
 <script>
 const quizData=[
-// --- ใส่ 60 ข้อเต็มที่นี่ ---
 {q:"What is the green pigment inside chloroplasts?",options:["Anthocyanin","Xanthophyll","Chlorophyll","Carotene"],answer:2,explain:"Chlorophyll is the green pigment used in photosynthesis."},
 {q:"Which plant tissue moves water from roots to leaves?",options:["Cambium","Xylem","Epidermis","Phloem"],answer:1,explain:"Xylem transports water and minerals upward."},
-// … (ข้อ 3–60) ใส่ต่อท้ายแบบเดียวกัน
+{q:"What does the stem do?",options:["Makes seeds","Makes food","Supports the plant and carries water","Absorbs water"],answer:2,explain:"The stem supports the plant and transports water and nutrients."},
+{q:"What is phototropism?",options:["Growth toward gravity","Growth toward touch","Growth toward light","Growth toward water"],answer:2,explain:"Phototropism is growth in response to light."},
+{q:"If the same force is applied to a heavy and light object, the lighter object will:",options:["Accelerate less","Stay still","Accelerate more","Stop moving"],answer:2,explain:"Lighter objects accelerate more given the same force (F=ma)."},
+{q:"Which surface would produce the most friction?",options:["Smooth tile","Sandpaper","Ice","Glass"],answer:1,explain:"Rough surfaces like sandpaper create more friction."},
+{q:"Newton's first law is also called:",options:["Law of Inertia","Law of Motion","Law of Gravity","Law of Forces"],answer:0,explain:"Newton's first law is the law of inertia."},
+{q:"The force of gravity depends on:",options:["Shape and color","Mass and distance","Size and temperature","Speed and time"],answer:1,explain:"Gravity depends on mass and distance between objects."},
+{q:"A rolling ball will keep moving until:",options:["Someone watches it","It disappears","A force stops it","It gets heavier"],answer:2,explain:"A force (like friction) is needed to stop motion."},
+{q:"Gravity gives objects their:",options:["Weight","Speed","Mass","Shape"],answer:0,explain:"Weight is the force of gravity acting on mass."},
+{q:"Which gas do cells need to carry out respiration?",options:["Carbon dioxide","Nitrogen","Oxygen","Hydrogen"],answer:2,explain:"Oxygen is used in cellular respiration."},
+{q:"Friction always acts:",options:["In the direction of motion","Opposite to motion","Downward only","Upward only"],answer:1,explain:"Friction opposes motion."},
+{q:"An object at rest stays at rest unless:",options:["It becomes heavier","A force acts on it","Time passes","It loses mass"],answer:1,explain:"A force is required to change motion (Newton's 1st law)."},
+{q:"What is the name of the process cells use to take in large particles?",options:["Diffusion","Endocytosis","Osmosis","Exocytosis"],answer:1,explain:"Endocytosis is the process to take in large particles."},
+{q:"Which situation shows useful friction?",options:["A box moving downhill","A car tire gripping the road","A ball rolling on grass","A sled sliding on ice"],answer:1,explain:"Car tires gripping the road is an example of useful friction."},
+{q:"What is the main purpose of roots?",options:["Carry water to leaves","Produce seeds","Make food","Support the plant and absorb water"],answer:3,explain:"Roots absorb water and support the plant."},
+{q:"Force equals:",options:["Mass x acceleration","Mass x speed","Distance x time","Weight x gravity"],answer:0,explain:"Force is mass multiplied by acceleration (F=ma)."},
+{q:"Which of the following is an example of Newton's second law?",options:["A rocket floating in space","A balloon flying upward","A football kicked harder","A book on a table"],answer:2,explain:"Newton's second law relates force and acceleration; kicking harder accelerates the football more."},
+{q:"Gravity always pulls objects toward:",options:["Other planets","The center of Earth","The moon","The sky"],answer:1,explain:"Gravity pulls objects toward the center of Earth."},
+{q:"Why do passengers move forward when a car suddenly stops?",options:["Friction","Speed","Inertia","Gravity"],answer:2,explain:"Passengers continue moving due to inertia."},
+{q:"When you push on a wall, the wall:",options:["Pulls you forward","Pushes back equally","Breaks immediately","Does nothing"],answer:1,explain:"The wall pushes back with equal force (Newton's 3rd law)."},
+{q:"A rocket moves upward because:",options:["Fuel pushes gases downward","Friction increases","Air pushes it","Gravity disappears"],answer:0,explain:"Action-reaction: gases pushed down make rocket go up."},
+{q:"If a runner speeds up, she is:",options:["At rest","Accelerating","Moving at constant speed","Stopping"],answer:1,explain:"Acceleration is change in speed or direction."},
+{q:"Momentum equals:",options:["Mass velocity","Speed+mass","Acceleration time","Force distance"],answer:0,explain:"Momentum is mass multiplied by velocity."},
+{q:"Which is an example of action-reaction?",options:["A car at rest","Walking (foot pushes ground)","Gravity pulling objects","A book on a table"],answer:1,explain:"When you push the ground to walk, ground pushes back."},
+{q:"Acceleration is a change in:",options:["Speed or direction","Force","Gravity","Mass"],answer:0,explain:"Acceleration is change in velocity (speed or direction)."},
+{q:"Newton's third law states:",options:["For every action, equal and opposite reaction","Objects remain at rest","Energy is conserved","Force = mass × acceleration"],answer:0,explain:"Every action has an equal and opposite reaction."},
+{q:"A parked car is:",options:["Falling","At rest","Accelerating","In motion"],answer:1,explain:"A parked car is at rest."},
+{q:"Which of the following has both magnitude and direction?",options:["Temperature","Speed","Velocity","Mass"],answer:2,explain:"Velocity has both magnitude and direction."},
+{q:"When you push a door, you apply:",options:["Force","Heat","Energy","Mass"],answer:0,explain:"Pushing a door applies force."},
+{q:"Which is a non-contact force?",options:["Friction","Pulling rope","Gravity","Push"],answer:2,explain:"Gravity is a non-contact force."},
+{q:"Which situation shows acceleration?",options:["A rock on the ground","A car parked in the garage","A bus slowing down","A clock ticking"],answer:2,explain:"A bus slowing down is acceleration (change in speed)."},
+{q:"A train moves 100 km in 2 hours. Speed =",options:["100 km/h","25 km/h","200 km/h","50 km/h"],answer:3,explain:"Speed = distance/time = 100/2 = 50 km/h."},
+{q:"If two equal forces act in opposite directions, the result is:",options:["Acceleration","Balanced force","Motion","Unbalanced force"],answer:1,explain:"Equal forces in opposite directions cancel out → balanced force."},
+{q:"A car speeding up shows:",options:["Balanced forces","Inertia only","No force acting","Unbalanced forces"],answer:3,explain:"Speeding up requires unbalanced forces."},
+{q:"Which unit measures speed?",options:["kg","m/s","J","N"],answer:1,explain:"Speed is measured in meters per second (m/s)."},
+{q:"A reference point is used to:",options:["Measure weight","Stop objects","Increase speed","Describe motion"],answer:3,explain:"Motion is described relative to a reference point."},
+{q:"Which is an example of a force?",options:["Reading a book","Sleeping","Lifting a box","Watching TV"],answer:2,explain:"Lifting a box applies a force."},
+{q:"If speed stays the same but direction changes, the object is:",options:["Accelerating","Stopping","Not accelerating","At rest"],answer:0,explain:"Changing direction is acceleration (change in velocity)."},
+{q:"When two billiard balls collide, momentum:",options:["Increases","Decreases","Becomes zero","Stays the same"],answer:3,explain:"Momentum is conserved in collisions."},
+{q:"Which of the following shows velocity?",options:["A person sitting","A car moving 60 km/h north","An apple falling","A ball at rest"],answer:1,explain:"Velocity includes speed and direction."},
+{q:"Momentum is conserved in:",options:["Earth only","Isolated systems","Every object's mass","All situations"],answer:1,explain:"Momentum is conserved in isolated systems."},
+{q:"Newton's first law is also called:",options:["Law of Motion","Law of Gravity","Law of Forces","Law of Inertia"],answer:3,explain:"Newton's first law is the law of inertia."},
+{q:"Speed measures:",options:["Mass and volume","Distance per unit time","Direction only","Position and shape"],answer:1,explain:"Speed = distance/time."},
+{q:"An object is in motion if it:",options:["Stops completely","Remains still","Changes place over time","Gets heavier"],answer:2,explain:"Motion means changing position over time."},
+{q:"Jumping off a boat pushes the boat:",options:["Upward","Backward","Forward","Downward"],answer:1,explain:"Action-reaction: jumping back pushes boat backward."},
+{q:"Force equals:",options:["Mass acceleration","Weight gravity","Distance x time","Mass speed"],answer:0,explain:"Force = mass × acceleration (F=ma)."},
+{q:"Motion is measured relative to:",options:["Gravity","Sun","A reference point","Earth"],answer:2,explain:"Motion is measured relative to a reference point."}
 ];
-let current=0,userAnswers=[],total=quizData.length;
+let current=0;
+let userAnswers=[];
 function showQuestion(){
   const q=quizData[current];
-  document.getElementById("progress").innerText=`Question ${current+1} of ${total}`;
+  document.getElementById("progress").innerText=`Question ${current+1} of
+  function showQuestion(){
+  const q=quizData[current];
   document.getElementById("question-text").innerText=q.q;
-  const opts=document.getElementById("options");opts.innerHTML="";
+  const optionsDiv=document.getElementById("options");
+  optionsDiv.innerHTML="";
   q.options.forEach((opt,i)=>{
-    const lbl=document.createElement("label");
-    lbl.innerHTML=`<input type="radio" name="option" value="${i}"> ${opt}`;
-    opts.appendChild(lbl);
+    const label=document.createElement("label");
+    label.innerHTML=`<input type="radio" name="option" value="${i}"> ${opt}`;
+    optionsDiv.appendChild(label);
   });
+  document.getElementById("progress").innerText=`Question ${current+1} of ${quizData.length}`;
 }
 function nextQuestion(){
-  const sel=document.querySelector('input[name="option"]:checked');
-  if(sel){userAnswers[current]=parseInt(sel.value);}
-  if(current<total-1){current++;showQuestion();}
-  else{showResults();}
+  const selected=document.querySelector('input[name="option"]:checked');
+  if(selected){
+    userAnswers[current]=parseInt(selected.value);
+    showExplanation();
+    if(current<quizData.length-1){
+      current++;
+      showQuestion();
+    } else {
+      showResults();
+    }
+  } else alert("Please select an answer!");
 }
 function prevQuestion(){
-  if(current>0){current--;showQuestion();}
+  if(current>0){
+    current--;
+    showQuestion();
+  }
+}
+function showExplanation(){
+  const resultDiv=document.getElementById("results");
+  const q=quizData[current];
+  const user=userAnswers[current];
+  if(user===q.answer){
+    resultDiv.innerHTML=`<span class="correct">Correct!</span> <div class="explain">${q.explain}</div>`;
+  } else {
+    resultDiv.innerHTML=`<span class="wrong">Wrong!</span> Correct answer: ${q.options[q.answer]}<div class="explain">${q.explain}</div>`;
+  }
 }
 function showResults(){
-  let score=0;let html="";
-  quizData.forEach((q,i)=>{
-    const ua=userAnswers[i];
-    const correct=q.answer;
-    const isCorrect=ua===correct;
-    if(isCorrect)score++;
-    html+=`<p>${i+1}. ${q.q}<br>
-    Your answer: <span class="${isCorrect?'correct':'wrong'}">${ua!=null?q.options[ua]:'No answer'}</span><br>
-    Correct answer: ${q.options[correct]}<br>
-    <span class="explain">${q.explain}</span></p><hr>`;
-  });
-  document.getElementById("quiz-container").style.display="none";
-  const res=document.getElementById("results");
-  res.innerHTML=`<h2>Score: ${score}/${total}</h2>`+html;
+  let score=0;
+  userAnswers.forEach((ans,i)=>{ if(ans===quizData[i].answer) score++; });
+  document.getElementById("quiz-container").innerHTML=`<h2>Your Score: ${score} / ${quizData.length}</h2>`;
 }
 showQuestion();
 </script>
